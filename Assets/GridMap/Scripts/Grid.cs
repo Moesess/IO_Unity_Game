@@ -54,6 +54,7 @@ public class Grid{
     }
 
     public void SetValue(int x, int y, int value){
+        // Set Value of a Tile based on x and y coords within grid
         if(x >= 0 && y >= 0 && x < width && y < height){
             gridArray[x, y] = value;
             debugTextArray[x, y].text = gridArray[x, y].ToString();
@@ -61,6 +62,7 @@ public class Grid{
     }
 
     public void SetValue(Vector3 worldPosition, int value){
+        // Set Value of a Tile based on world position coords
         int x, y;
         GetXY(worldPosition, out x, out y);
 
@@ -68,6 +70,7 @@ public class Grid{
     }
 
     public int GetValue(int x, int y){
+        // Get Value of a Tile based on x and y coords within grid
         if(x >= 0 && y >= 0 && x < width && y < height){
             return gridArray[x, y];
         }else{
@@ -76,6 +79,7 @@ public class Grid{
     }
 
     public int GetValue(Vector3 worldPosition){
+        // Get Value of a Tile based on world position coords
         int x, y;
         GetXY(worldPosition, out x, out y);
         return GetValue(x, y);
