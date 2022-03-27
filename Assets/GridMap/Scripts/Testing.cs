@@ -4,23 +4,23 @@ using UnityEngine;
 using CodeMonkey.Utils;
 
 
-public class Testing : MonoBehaviour{   
-    [SerializeField] private HeatMapVisual heatMapVisual;
+public class Testing : MonoBehaviour
+{   
     private Grid grid;
 
     // Start is called before the first frame update
     void Start(){
-        grid = new Grid(150, 100, 6f, Vector3.zero);
+        grid = new Grid(20, 10, 10f, Vector3.zero);
 
-        heatMapVisual.SetGrid(grid);
     }
-
 
     private void Update() {
         if(Input.GetMouseButtonDown(0)){
-            Vector3 mousePos = UtilsClass.GetMouseWorldPosition();
-            
-            grid.AddValue(mousePos, 100, 2, 25);
+            grid.SetValue(UtilsClass.GetMouseWorldPosition(), 56);
+        }
+
+        if(Input.GetMouseButtonDown(1)){
+            Debug.Log(grid.GetValue(UtilsClass.GetMouseWorldPosition()));
         }
     }
 }
