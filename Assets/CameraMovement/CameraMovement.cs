@@ -1,13 +1,10 @@
 using System;
 using UnityEngine;
-// using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour{
-    public float camSpeed = 70f;
-    public float camBorderThickness = 10f;
-    Vector3 camPos;
-    Vector2 touchPos;
-    Vector2 moveTouchPos;
+    public float camSpeed = 80f;
+    public float camTouchSpeed = 3f;
+    Vector3 camPos; 
 
     // Update is called once per frame
     void Update(){
@@ -15,10 +12,10 @@ public class CameraMovement : MonoBehaviour{
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-            
-            transform.Translate(
-                -touchDeltaPosition.x * camSpeed * Time.deltaTime,
-                -touchDeltaPosition.y * camSpeed * Time.deltaTime,
+
+            transform.Translate( // If touch dragged, tranlate camera with vector
+                -touchDeltaPosition.x * camTouchSpeed * Time.deltaTime,
+                -touchDeltaPosition.y * camTouchSpeed * Time.deltaTime,
                 0
             );
 
@@ -43,5 +40,4 @@ public class CameraMovement : MonoBehaviour{
 
         transform.position = camPos;
     }
-
 }
