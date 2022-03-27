@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 
-public class Grid {
+public class Grid<TGridObject> {
     public const int HEAT_MAP_MAX_VALUE = 100;
     public const int HEAT_MAP_MIN_VALUE = 0;
 
 
-    public event EventHandler<OnGridValueChangedEventArgs> OnGridValueChanged;
-    public class OnGridValueChangedEventArgs : EventArgs{
+    public event EventHandler<OnGridObjectChangedEventArgs> OnGridObjectChanged;
+    public class OnGridObjectChangedEventArgs : EventArgs{
         public int x;
         public int y;
     }
@@ -20,28 +20,36 @@ public class Grid {
     private int height;
     private float cellSize;
     private Vector3 originPosition;
-    private int[,] gridArray;
+    private TGridObject[,] gridArray;
     private TextMesh[,] debugTextArray;
 
 
-    public Grid(int width, int height, float cellSize, Vector3 originPosition) {
+    public Grid(
+        int width, int height, float cellSize, Vector3 originPosition,
+        Func<Grid<TGridObject>, int, int, TGridObject> createGridObject // Function creates grid object with its grid reference, x and y position, and the type of object
+    ) {
         // Map grid constructor
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
         this.originPosition = originPosition;
 
-        gridArray = new int[width, height];
+        gridArray = new TGridObject[width, height];
         
-        bool showDebug = true;
+        for(int x = 0; x < gridArray.GetLength(0); x++){
+            for(int y = 0; y < gridArray.GetLength(1); y++){
+                gridArray[x, y] = createGridObject(this, x, y);
+            }
+        }
 
+        bool showDebug = true;
         if(showDebug){
             TextMesh[,] debugTextArray = new TextMesh[width, height];
 
             for(int x = 0; x < gridArray.GetLength(0); x++){
                 for(int y = 0; y < gridArray.GetLength(1); y++){
                     debugTextArray[x, y] = UtilsClass.CreateWorldText(
-                        gridArray[x, y].ToString(),
+                        gridArray[x, y]?.ToString(),
                         null,
                         GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f,
                         30,
@@ -57,8 +65,8 @@ public class Grid {
             Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
             Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
 
-            OnGridValueChanged += (object sender, OnGridValueChangedEventArgs eventArgs) => {
-                debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y].ToString();
+            OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) => {
+                debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
             };
         }
     }
@@ -91,75 +99,43 @@ public class Grid {
     }
 
 
-    public void SetValue(int x, int y, int value) {
+    public void SetGridObject(int x, int y, TGridObject value) {
         // Set Value of a Tile based on x and y coords within grid
         if(x >= 0 && y >= 0 && x < width && y < height){
-            gridArray[x, y] = Mathf.Clamp(value, HEAT_MAP_MIN_VALUE, HEAT_MAP_MAX_VALUE);
-            if(OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs {x=x, y=y});
+            gridArray[x, y] = value;
+            if(OnGridObjectChanged != null) OnGridObjectChanged(this, new OnGridObjectChangedEventArgs { x = x, y = y });
         }
     }
 
 
-    public void SetValue(Vector3 worldPosition, int value) {
+    public void TriggerGridObjectChanged(int x, int y){
+        if(OnGridObjectChanged != null) OnGridObjectChanged(this, new OnGridObjectChangedEventArgs { x = x, y = y });
+    }
+
+
+    public void SetGridObject(Vector3 worldPosition, TGridObject value) {
         // Set Value of a Tile based on world position coords
         int x, y;
         GetXY(worldPosition, out x, out y);
 
-        SetValue(x, y, value);
+        SetGridObject(x, y, value);
     }
 
 
-    public int GetValue(int x, int y) {
+    public TGridObject GetGridObject(int x, int y) {
         // Get Value of a Tile based on x and y coords within grid
         if(x >= 0 && y >= 0 && x < width && y < height){
             return gridArray[x, y];
         }else{
-            return 0;
+            return default(TGridObject);
         }
     }
 
 
-    public int GetValue(Vector3 worldPosition) {
+    public TGridObject GetGridObject(Vector3 worldPosition) {
         // Get Value of a Tile based on world position coords
         int x, y;
         GetXY(worldPosition, out x, out y);
-        return GetValue(x, y);
-    }
-
-
-    public void AddValue(int x, int y, int value){
-        // Add value to existing tile
-        SetValue(x, y, GetValue(x, y) + value);
-    }
-
-
-    public void AddValue(Vector3 worldPosition, int value, int fullValueRange, int totalRange) {
-            // Adds value to existing tile and tiles around it in a diamond pattern within specified range
-
-            int lowerValueAmount = Mathf.RoundToInt((float)value / (totalRange - fullValueRange));
-            
-            GetXY(worldPosition, out int originX, out int originY);
-
-            for(int x = 0; x < totalRange; x++){
-                for(int y = 0; y < totalRange - x; y++){
-                    int radius = x + y;
-                    int addValueAmount = value;
-
-                    if(radius > fullValueRange){
-                        addValueAmount -= lowerValueAmount * (radius - fullValueRange);
-                    }
-                    
-                    AddValue(originX + x, originY + y, addValueAmount);
-
-                    if(x != 0)
-                        AddValue(originX - x, originY + y, addValueAmount);
-                    
-                    if(y != 0)
-                        AddValue(originX + x, originY - y, addValueAmount);
-
-                    if(y != 0 && x != 0)
-                        AddValue(originX - x, originY - y, addValueAmount);
-                }
-            }
+        return GetGridObject(x, y);
     }
 }

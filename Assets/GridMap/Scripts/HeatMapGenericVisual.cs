@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeatMapVisual : MonoBehaviour{
+public class HeatMapGenericVisual : MonoBehaviour{
 
-    private Grid<int> grid;
+    private Grid<HeatMapGridObject> grid;
     private Mesh mesh;
     private bool updateMesh;
 
@@ -16,7 +16,7 @@ public class HeatMapVisual : MonoBehaviour{
     }
 
 
-    public void SetGrid(Grid<int> grid) {
+    public void SetGrid(Grid<HeatMapGridObject> grid) {
 
         this.grid = grid;
         UpdateHeatMapVisual();
@@ -25,7 +25,7 @@ public class HeatMapVisual : MonoBehaviour{
     }
 
 
-    private void Grid_OnGridValueChanged(object sender, Grid<int>.OnGridObjectChangedEventArgs e) {
+    private void Grid_OnGridValueChanged(object sender, Grid<HeatMapGridObject>.OnGridObjectChangedEventArgs e) {
 
         updateMesh = true;
     }
@@ -53,9 +53,10 @@ public class HeatMapVisual : MonoBehaviour{
                 int index = x * grid.GetHeight() + y;
                 Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize();
 
-                int gridValue = grid.GetGridObject(x, y);
-                float gridValueNormalized = (float)gridValue / Grid<int>.HEAT_MAP_MAX_VALUE;
+                HeatMapGridObject gridObject = grid.GetGridObject(x, y);
+                float gridValueNormalized = gridObject.GetValueNormalized();
                 Vector2 gridValueUV = new Vector2(gridValueNormalized, 0f);
+
                 MeshUtils.AddToMeshArrays(
                     vertices,
                     uv,
@@ -73,6 +74,5 @@ public class HeatMapVisual : MonoBehaviour{
         mesh.vertices = vertices;
         mesh.uv = uv;
         mesh.triangles = triangles;
-
     }
 }
