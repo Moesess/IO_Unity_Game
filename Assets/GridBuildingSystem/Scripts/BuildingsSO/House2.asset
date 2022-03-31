@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: House2
   m_EditorClassIdentifier: 
   nameString: Big House
-  prefab: {fileID: 4558690823911664750, guid: f929577b1ae233c4f81869188326baed, type: 3}
-  visual: {fileID: 0}
-  width: 2
-  height: 2
+  prefab: {fileID: 4558690823911664750, guid: c7a399c2abb72a9468cfd8d0779a72c6, type: 3}
+  width: 4
+  height: 4
