@@ -5,31 +5,29 @@ using CodeMonkey.Utils;
 
 
 public class Testing : MonoBehaviour{   
-    [SerializeField] private HeatMapVisual heatMapVisual;
-    [SerializeField] private HeatMapBoolVisual heatMapBoolVisual;
-    [SerializeField] private HeatMapGenericVisual heatMapGenericVisual;
+    // [SerializeField] private HeatMapGenericVisual heatMapGenericVisual;
     private Grid<HeatMapGridObject> grid;
 
     // Start is called before the first frame update
     void Start(){
-        grid = new Grid<HeatMapGridObject>(
-            20, 10, 10f, Vector3.zero,
-            (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
+        // grid = new Grid<HeatMapGridObject>(
+        //     20, 10, 10f, Vector3.zero,
+        //     (Grid<HeatMapGridObject> g, int x, int y) => new HeatMapGridObject(g, x, y));
 
         //heatMapVisual.SetGrid(grid);
         // heatMapBoolVisual.SetGrid(grid);
-        heatMapGenericVisual.SetGrid(grid);
+        // heatMapGenericVisual.SetGrid(grid);
     }
 
 
     private void Update() {
-        if(Input.GetMouseButtonDown(0)){
-            Vector3 mousePos = UtilsClass.GetMouseWorldPosition();
-            HeatMapGridObject heatMapGridObject = grid.GetGridObject(mousePos);
+        // if(Input.GetMouseButtonDown(0)){
+        //     Vector3 mousePos = UtilsClass.GetMouseWorldPosition();
+        //     HeatMapGridObject heatMapGridObject = grid.GetGridObject(mousePos);
 
-            if(heatMapGenericVisual != null)
-                heatMapGridObject.AddValue(5);
-        }
+        //     if(heatMapGenericVisual != null)
+        //         heatMapGridObject.AddValue(5);
+        // }
     }
 }
 

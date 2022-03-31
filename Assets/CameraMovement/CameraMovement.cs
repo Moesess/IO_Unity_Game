@@ -23,11 +23,11 @@ public class CameraMovement : MonoBehaviour{
         }
 
         if (Input.GetKey("w")){
-            camPos.y += camSpeed * Time.deltaTime;
+            camPos.z += camSpeed * Time.deltaTime;
         }
 
         if(Input.GetKey("s")){
-            camPos.y -= camSpeed * Time.deltaTime;
+            camPos.z -= camSpeed * Time.deltaTime;
         }
 
         if(Input.GetKey("a")){
