@@ -54,7 +54,7 @@ public class GridXZ<TGridObject> {
                         gridArray[x, z]?.ToString(),
                         null,
                         GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * .5f,
-                        15,
+                        1,
                         Color.white,
                         TextAnchor.MiddleCenter,
                         TextAlignment.Center

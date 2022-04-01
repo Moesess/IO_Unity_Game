@@ -4,14 +4,18 @@ using UnityEngine;
 using CodeMonkey.Utils;
 
 public class GridBuildingSystem : MonoBehaviour{
+    public static GridBuildingSystem Instance {get; private set;}
+
     [SerializeField] private GridPlacedObjectSO gridPlacedObject;
     private GridXZ<GridObject> grid;
 
     private void Awake() {
         // Set default grid sizes and create new grid instance
-        int gridWidth = 10;
-        int gridHeight = 10;
-        float cellSize = 10f;
+        Instance = this;
+
+        int gridWidth = 50;
+        int gridHeight = 50;
+        float cellSize = 1f;
         grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSize, Vector3.zero, (GridXZ<GridObject> g, int x, int z) => new GridObject(g, x, z));
     }
 
