@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d9139f48dded54c9b08625081a3d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPlacedObject: {fileID: 11400000, guid: 10569830e0293f3439ba4dab3fcfbf13, type: 2}
+  gridPlacedObject: {fileID: 11400000, guid: fca7ff865f15198429246dfa06b7bef9, type: 2}
 --- !u!1 &531424757
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +360,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
