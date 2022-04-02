@@ -5,13 +5,12 @@ using UnityEngine;
 public class GridPlacedObject : MonoBehaviour{
     public static GridPlacedObject Create(Vector3 worldPosition, Vector2Int origin, GridPlacedObjectSO gridPlacedObjectSO){
         Transform gridPlacedObjectTransform = Instantiate(gridPlacedObjectSO.prefab, worldPosition, Quaternion.identity);
-
         GridPlacedObject gridPlacedObject = gridPlacedObjectTransform.GetComponent<GridPlacedObject>();
+        
         gridPlacedObject.gridPlacedObjectSO = gridPlacedObjectSO;
         gridPlacedObject.origin = origin;
 
         gridPlacedObject.Setup();
-
         return gridPlacedObject;
     }
 
@@ -20,19 +19,29 @@ public class GridPlacedObject : MonoBehaviour{
     private Vector2Int origin;
 
     protected virtual void Setup(){
-        Debug.Log("GridPlacedObject.Setup() " + transform);
+        // Debug.Log("GridPlacedObject.Setup() " + transform);
     }
 
     public virtual void GridSetupDone(){
-        Debug.Log("GridPlacedObject.GridSetupDone()" + transform);
+        // Debug.Log("GridPlacedObject.GridSetupDone()" + transform);
     }
 
     public Vector2Int GetGridPosition() {
         return origin;
     }
 
+    protected virtual void TriggerGridObjectChanged() {
+        foreach (Vector2Int gridPos in GetGridPositionList()) {
+            GridBuildingSystem.Instance.GetGridObject(gridPos).TriggerGridObjectChanged();
+        }
+    }
+    
     public List<Vector2Int> GetGridPositionList() {
         return gridPlacedObjectSO.GetGridPositionList(origin);
+    }
+
+    public virtual void DestroySelf() {
+        Destroy(gameObject);
     }
 
     public override string ToString() {
