@@ -44,7 +44,7 @@ public class GridXZ<TGridObject> {
         }
 
         // !!!! DEBUG MODE !!!!
-        bool showDebug = false;
+        bool showDebug = true;
         if(showDebug){
             TextMesh[,] debugTextArray = new TextMesh[width, height];
 
@@ -54,7 +54,7 @@ public class GridXZ<TGridObject> {
                         gridArray[x, z]?.ToString(),
                         null,
                         GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * .5f,
-                        15,
+                        10,
                         Color.white,
                         TextAnchor.MiddleCenter,
                         TextAlignment.Center
@@ -142,5 +142,15 @@ public class GridXZ<TGridObject> {
         return GetGridObject(x, z);
     }
 
+    public bool IsValidGridPosition(Vector2Int gridPos) {
+        // Check if given position is part of grid
+        int x = gridPos.x;
+        int z = gridPos.y;
 
+        if (x >= 0 && z >= 0 && x < width && z < height) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

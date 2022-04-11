@@ -14,7 +14,7 @@ public class GridPlacedObjectSO : ScriptableObject{
         // Method used for calculating nearby tiles that building occupies
         List<Vector2Int> gridPositionList = new List<Vector2Int>();
         for(int x = 0; x < width; x++){
-            for(int y = 0; y < width; y++){
+            for(int y = 0; y < height; y++){
                 gridPositionList.Add(offset + new Vector2Int(x, y));
             }
         }
