@@ -6,10 +6,11 @@ public class GridPlacedObject : MonoBehaviour{
     public static GridPlacedObject Create(Vector3 worldPosition, Vector2Int origin, GridPlacedObjectSO gridPlacedObjectSO){
         Transform gridPlacedObjectTransform = Instantiate(gridPlacedObjectSO.prefab, worldPosition, Quaternion.identity);
         GridPlacedObject gridPlacedObject = gridPlacedObjectTransform.GetComponent<GridPlacedObject>();
-        
+
         gridPlacedObject.gridPlacedObjectSO = gridPlacedObjectSO;
         gridPlacedObject.origin = origin;
-
+        // gridPlacedObject.building = new Building(0, 0);
+        
         gridPlacedObject.Setup();
         return gridPlacedObject;
     }
@@ -17,6 +18,7 @@ public class GridPlacedObject : MonoBehaviour{
 
     private GridPlacedObjectSO gridPlacedObjectSO;
     private Vector2Int origin;
+    private BuildingSO building;
 
     protected virtual void Setup(){
         // Debug.Log("GridPlacedObject.Setup() " + transform);
@@ -45,6 +47,6 @@ public class GridPlacedObject : MonoBehaviour{
     }
 
     public override string ToString() {
-        return gridPlacedObjectSO.nameString;
+        return gridPlacedObjectSO.nameString + building.getLevel();
     }
 }

@@ -23,7 +23,7 @@ public class GridBuildingSystem : MonoBehaviour{
         int gridHeight = 50;
         float cellSize = 1f;
         grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSize, Vector3.zero, (GridXZ<GridObject> g, int x, int z) => new GridObject(g, x, z));
-        gridPlacedObjectSO = gridPlacedObjectSOList[1];
+        gridPlacedObjectSO = null;
     }
 
     public class GridObject {
@@ -82,6 +82,10 @@ public class GridBuildingSystem : MonoBehaviour{
             }else{
                 UtilsClass.CreateWorldTextPopup("Cannot Build Here!", mousePos);
             }
+        }
+
+        if(Input.GetMouseButton(0) && gridPlacedObjectSO == null){
+
         }
     }
 
