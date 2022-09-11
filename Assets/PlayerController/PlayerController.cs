@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] private float turnSpeed = 360;
     private Vector3 input;
-    private Animation anim;
+    public Animator animator;
+
 
     void Update()
     {
@@ -20,7 +21,13 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate() {
         if(input.x != 0 || input.z != 0)
         {
+            animator.SetBool("Moving", true);
             Move();
+
+        }
+        else
+        {
+            animator.SetBool("Moving", false);
         }
     }
 
