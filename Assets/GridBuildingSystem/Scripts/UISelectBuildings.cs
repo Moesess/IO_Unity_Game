@@ -7,12 +7,15 @@ public class UISelectBuildings : MonoBehaviour{
 
     private Dictionary<GridPlacedObjectSO, Transform> gridPlacedObjectTransformDic;
     private bool active;
+    Transform buttonsTransform;
 
     private void Awake() {
         gridPlacedObjectTransformDic = new Dictionary<GridPlacedObjectSO, Transform>();
-        gridPlacedObjectTransformDic[GridBuildingSystemAssets.Instance.house] = transform.Find("HouseBTN");
-        gridPlacedObjectTransformDic[GridBuildingSystemAssets.Instance.mansion] = transform.Find("MansionBTN");
+        buttonsTransform = transform.Find("BuildingButtons");
 
+        gridPlacedObjectTransformDic[GridBuildingSystemAssets.Instance.house] = buttonsTransform.Find("HouseBTN");
+        gridPlacedObjectTransformDic[GridBuildingSystemAssets.Instance.mansion] = buttonsTransform.Find("MansionBTN");
+        
         this.active = false;
 
         foreach (GridPlacedObjectSO gridPlacedObjectSO in gridPlacedObjectTransformDic.Keys) {
@@ -46,17 +49,11 @@ public class UISelectBuildings : MonoBehaviour{
 
     public void ToggleBuildingMenu(){
         active = !active;
-        GameObject backgroundPanel = transform.Find("BuildPanel").gameObject;
-
+        
         if(active)
-            backgroundPanel.GetComponent<Animation>().Play("Rise");
+            transform.GetComponent<Animation>().Play("Rise");
         else 
-            backgroundPanel.GetComponent<Animation>().Play("Down");
-
-
-        // foreach (GridPlacedObjectSO gridPlacedObjectSO in gridPlacedObjectTransformDic.Keys) {
-        //     gridPlacedObjectTransformDic[gridPlacedObjectSO].gameObject.SetActive(active);
-        // }
+            transform.GetComponent<Animation>().Play("Down");
 
         // backgroundPanel.SetActive(active);
     }
