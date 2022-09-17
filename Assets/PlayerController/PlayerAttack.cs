@@ -11,14 +11,20 @@ public class PlayerAttack : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             animator.SetBool("Attacking", true);
+            foreach(var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                if(Vector3.Distance(
+                    GameObject.FindGameObjectWithTag("Player").transform.position,
+                    enemy.transform.position) < 3)
+                    {
+                        Destroy(enemy);
+                    }
+            }
+
         }
         else
         {
             animator.SetBool("Attacking", false);
-        }
-        if(Input.GetMouseButton(1))
-        {
-            animator.SetBool("Dead",true);
         }
     }
 }
