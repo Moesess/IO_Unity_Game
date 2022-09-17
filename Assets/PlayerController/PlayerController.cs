@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private float speed = 5;
+    [SerializeField] private float speed = 5f;
     [SerializeField] private float turnSpeed = 360;
     private Vector3 input;
     public Animator animator;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         if(input != Vector3.zero)
         {
-            var relative = (transform.position + input.ToIso()) - transform.position;
+            var relative = (transform.position + input) - transform.position;
             var rot = Quaternion.LookRotation(relative,Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, turnSpeed * Time.deltaTime);
