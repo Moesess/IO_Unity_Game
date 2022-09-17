@@ -16,5 +16,9 @@ public class PlayerAttack : MonoBehaviour
         {
             animator.SetBool("Attacking", false);
         }
+        if(Input.GetMouseButton(1))
+        {
+            animator.SetBool("Dead",true);
+        }
     }
 }
