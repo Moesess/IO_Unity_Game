@@ -4380,7 +4380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a371862e24ddf13479d7721b4665be15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartButton: {fileID: 0}
+  restartButton: {fileID: 529257361}
   sceneName: MapGridTestingScene
 --- !u!1001 &530127878
 PrefabInstance:
@@ -12590,7 +12590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a371862e24ddf13479d7721b4665be15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartButton: {fileID: 0}
+  restartButton: {fileID: 1481720730}
   sceneName: FightScene
 --- !u!1 &1493116873
 GameObject:
