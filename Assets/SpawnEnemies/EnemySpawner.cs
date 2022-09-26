@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject weakEnemy;
+    public GameObject[] weakEnemy;
     [SerializeField]
-    private GameObject strongEnemy;
+    public GameObject[] strongEnemy;
     // Start is called before the first frame update
 
     [SerializeField]
-    private float weakEnemyInterval = 3.5f;
+    private float weakEnemyInterval;
     [SerializeField]
-    private float strongEnemyInterval = 6.5f;
+    private float strongEnemyInterval;
+    [SerializeField]
 
     void Start()
     {
-       StartCoroutine(spawnEnemy(weakEnemyInterval,weakEnemy)); 
-       StartCoroutine(spawnEnemy(strongEnemyInterval,strongEnemy));
+       StartCoroutine(SpawnEnemy(weakEnemyInterval,weakEnemy[Random.Range(0,5)])); 
+       StartCoroutine(SpawnEnemy(strongEnemyInterval,strongEnemy[Random.Range(0,1)]));
+       StartCoroutine(IncreaseSpawnIntensity());
     }
 
     // Update is called once per frame
@@ -27,10 +31,17 @@ public class EnemySpawner : MonoBehaviour
         
     }
 
-    private IEnumerator spawnEnemy(float interval, GameObject enemy)
+    private IEnumerator SpawnEnemy(float interval, GameObject enemy)
     {
         yield return new WaitForSeconds(interval);
-        GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(65,75),2,Random.Range(44,54)),Quaternion.identity);
-        StartCoroutine(spawnEnemy(interval,enemy));
+        GameObject newEnemy = Instantiate(enemy, new Vector3(gameObject.transform.position.x ,2,gameObject.transform.position.z),Quaternion.identity);
+        StartCoroutine(SpawnEnemy(interval,enemy));
+    }
+    private IEnumerator IncreaseSpawnIntensity()
+    {
+        yield return new WaitForSeconds(20);
+        weakEnemyInterval--;
+        strongEnemyInterval--;
+        StartCoroutine(IncreaseSpawnIntensity());
     }
 }
