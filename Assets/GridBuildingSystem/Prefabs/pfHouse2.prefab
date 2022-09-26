@@ -23,9 +23,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4162034726892604091}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.579277, y: 10.00627, z: 4.339805}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 16.320387, y: 20.01254, z: 29.15856}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8462521444953971197}
@@ -45,8 +45,8 @@ Transform:
   - {fileID: 6975780920858728409}
   - {fileID: 3448415894069956490}
   - {fileID: 3963907371582255365}
-  m_Father: {fileID: 718289237875393601}
-  m_RootOrder: 4
+  m_Father: {fileID: 1781044217499744}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4815989017984678090
 GameObject:
@@ -74,13 +74,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8480810252492216118}
   - {fileID: 1726871439879031908}
   - {fileID: 1781044217499744}
-  - {fileID: 1942312001104460084}
-  - {fileID: 451889411558628053}
   m_Father: {fileID: 4558690823911664750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -359,16 +357,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9182421497760116581}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 26.55, y: 2.3381646, z: 10.09}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 4.8199964, y: 4.676329, z: 47.100002}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8221956766947326054}
   - {fileID: 8919354630836896033}
   - {fileID: 6172974059635592617}
-  m_Father: {fileID: 718289237875393601}
-  m_RootOrder: 3
+  m_Father: {fileID: 1781044217499744}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6560466981507040
 PrefabInstance:
