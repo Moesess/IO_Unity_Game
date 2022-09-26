@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
     public Animator animator;
+    private TextMeshProUGUI textMesh;
     public float strength;
-    private float cooldown = 2.0f;
+    private float cooldown = 0.83f;
     private float timer = 0f;
     public int killedMonsters = 0;
+    public TextMeshProUGUI tmp;
     // Update is called once per frame
     private void Start() {
         strength = gameObject.GetComponent<Character>().Strength.BaseValue;
@@ -31,7 +34,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if(timer >= cooldown)
         {
-            Debug.Log(timer);
             timer = 0;
             foreach(var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
             {
@@ -39,13 +41,12 @@ public class PlayerAttack : MonoBehaviour
                     GameObject.FindGameObjectWithTag("Player").transform.position,
                     enemy.transform.position) < 6)
                     {
-                        Debug.Log(enemy.GetComponent<Enemy>().health);
-                        Debug.Log("Strength: " + strength + " Enemy HP: " + enemy.GetComponent<Enemy>().health);
                         enemy.GetComponent<Health>().ModifyHealth(strength * (-1));
-                        if(enemy.GetComponent<Enemy>().health <= 0)
+                        if(enemy.GetComponent<Health>().currentHealth <= 0)
                         {
-                            Destroy(enemy);
                             killedMonsters++;
+                            tmp.text = "Zabite Potwory: " + killedMonsters;
+                            
                         }
                     }
             }

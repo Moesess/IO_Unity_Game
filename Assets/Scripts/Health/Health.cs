@@ -1,10 +1,11 @@
- using System;
+using System;
 using UnityEngine;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
     private float maxHealth;
-    private float currentHealth;
+    public float currentHealth;
 
     public event Action<float> OnHealthPctChanged = delegate { };
 
@@ -19,11 +20,23 @@ public class Health : MonoBehaviour
 
         float currentHealthPct = currentHealth/maxHealth;
         OnHealthPctChanged(currentHealthPct);
-        gameObject.GetComponent<Enemy>().health = currentHealth;
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space))
-            ModifyHealth(-10);
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+            if(gameObject.tag == "Player")
+            {
+                Time.timeScale = 0;
+                GameObject.Find("SummaryWindowCanvas").GetComponent<Canvas>().enabled = true;
+                var slayedMonstersSummary = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().killedMonsters;
+                GameObject.Find("SlayedMonstersNumber").GetComponent<TextMeshProUGUI>().text = slayedMonstersSummary.ToString();
+                GameObject.Find("CoinNumber").GetComponent<TextMeshProUGUI>().text = (slayedMonstersSummary * UnityEngine.Random.Range(1,5)).ToString();
+                GameObject.Find("WoodNumber").GetComponent<TextMeshProUGUI>().text = (slayedMonstersSummary * UnityEngine.Random.Range(1,5)).ToString();
+                GameObject.Find("StoneNumber").GetComponent<TextMeshProUGUI>().text = (slayedMonstersSummary * UnityEngine.Random.Range(1,5)).ToString();
+                GameObject.Find("IronNumber").GetComponent<TextMeshProUGUI>().text = (slayedMonstersSummary * UnityEngine.Random.Range(1,5)).ToString();
+            }
+        }
     }
 }
