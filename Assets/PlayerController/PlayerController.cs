@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 input;
     public Animator animator;
 
-
+    void Start()
+    {
+        GameObject.Find("SummaryWindowCanvas").GetComponent<Canvas>().enabled = false;
+    }
     void Update()
     {
         
