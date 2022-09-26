@@ -17,7 +17,7 @@ public class LoadSceneOnClickButton : MonoBehaviour
     {
         Time.timeScale = 1;
         GameObject.Find("SummaryWindowCanvas").GetComponent<Canvas>().enabled = false;
-        SceneManager.UnloadScene(SceneManager.GetActiveScene().name);
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(sceneName);
     }
 
