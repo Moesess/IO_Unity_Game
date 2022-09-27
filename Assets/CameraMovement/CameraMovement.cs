@@ -22,19 +22,19 @@ public class CameraMovement : MonoBehaviour{
             camPos = transform.position;
         }
 
-        if (Input.GetKey("w")){
+        if (Input.GetKey("w") && !(transform.position.z > 35)){
             camPos.z += camSpeed * Time.deltaTime;
         }
 
-        if(Input.GetKey("s")){
+        if(Input.GetKey("s") && !(transform.position.z < -5)){
             camPos.z -= camSpeed * Time.deltaTime;
         }
 
-        if(Input.GetKey("a")){
+        if(Input.GetKey("a") && !(transform.position.x < 0)){
             camPos.x -= camSpeed * Time.deltaTime;
         }
 
-        if(Input.GetKey("d")){
+        if(Input.GetKey("d") && !(transform.position.x > 50)){
             camPos.x += camSpeed * Time.deltaTime;
         }
 
