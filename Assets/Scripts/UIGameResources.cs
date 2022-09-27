@@ -20,6 +20,7 @@ public class UIGameResources : MonoBehaviour
         GameResources.OnIronAmountChanged += delegate (object sender, EventArgs e) {
             UpdateResourceTextObject();
         };
+
         UpdateResourceTextObject();
     }
 

@@ -6,17 +6,21 @@ using UnityEngine.UI;
 
 public class LoadSceneOnClickButton : MonoBehaviour
 {
-    public Button restartButton;
+    public Button button;
     public string sceneName;
 
     void Start() {
-        restartButton.onClick.AddListener(Restart);
+        button.onClick.AddListener(Load);
     }
 
-    void Restart()
+    void Load()
     {
-        Time.timeScale = 1;
-        GameObject.Find("SummaryWindowCanvas").GetComponent<Canvas>().enabled = false;
+        if (SceneManager.GetActiveScene().name == "FightScene"){
+            Time.timeScale = 1;
+            GameObject.Find("SummaryWindowCanvas").GetComponent<Canvas>().enabled = false;
+        }
+        
+        Debug.Log(transform.name);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(sceneName);
     }
