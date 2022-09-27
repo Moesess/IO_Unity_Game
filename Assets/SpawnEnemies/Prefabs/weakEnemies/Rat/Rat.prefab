@@ -1528,7 +1528,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 7505122785795010132}
-  health: 0
   strength: 0
   animator: {fileID: 665364817546184885}
 --- !u!95 &665364817546184885
@@ -1565,7 +1564,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 6
+  m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1667,6 +1666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a2e55a36b2eb84fa52cc8b7e86c7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
+  xCoins: 0
+  xWood: 0
+  xIron: 0
+  xStone: 0
 --- !u!1 &7763427976752406706
 GameObject:
   m_ObjectHideFlags: 0

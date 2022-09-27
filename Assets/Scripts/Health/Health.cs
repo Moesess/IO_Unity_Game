@@ -6,6 +6,11 @@ public class Health : MonoBehaviour
 {
     private float maxHealth;
     public float currentHealth;
+    public System.Random rand = new System.Random();
+    public int xCoins;
+    public int xWood;
+    public int xIron;
+    public int xStone;
 
     public event Action<float> OnHealthPctChanged = delegate { };
 
@@ -22,24 +27,41 @@ public class Health : MonoBehaviour
         OnHealthPctChanged(currentHealthPct);
     }
 
-    private void Update() {
+    private void Start() 
+    {
+        xCoins = UnityEngine.Random.Range(1,5);
+        xWood = UnityEngine.Random.Range(1,5);
+        xIron = UnityEngine.Random.Range(1,5);
+        xStone = UnityEngine.Random.Range(1,5);
+    }
+    private void Update() 
+    {
         if(currentHealth <= 0)
         {
+
             Destroy(gameObject);
             if(gameObject.tag == "Player")
             {
+                Debug.Log(xCoins);
+                Debug.Log(xWood);
+                Debug.Log(xIron);
+                Debug.Log(xStone);
                 Time.timeScale = 0;
                 GameObject.Find("SummaryWindowCanvas").GetComponent<Canvas>().enabled = true;
-                var slayedMonstersSummary = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().killedMonsters;
+                int slayedMonstersSummary = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().killedMonsters;
                 GameObject.Find("SlayedMonstersNumber").GetComponent<TextMeshProUGUI>().text = slayedMonstersSummary.ToString();
-                var earnedCoins = slayedMonstersSummary * UnityEngine.Random.Range(1,5);
+                int earnedCoins = slayedMonstersSummary * xCoins;
                 GameResources.AddCoinAmount(earnedCoins);
-                var earnedWood = slayedMonstersSummary * UnityEngine.Random.Range(1,5);
+                Debug.Log("earnedCoins: " + earnedCoins);
+                int earnedWood = slayedMonstersSummary * xWood;
                 GameResources.AddWoodAmount(earnedWood);
-                var earnedStone = slayedMonstersSummary * UnityEngine.Random.Range(1,5);
+                Debug.Log("earnedWood: " + earnedWood);
+                int earnedStone = slayedMonstersSummary * xStone;
                 GameResources.AddStoneAmount(earnedStone);
-                var earnedIron = slayedMonstersSummary * UnityEngine.Random.Range(1,5);
+                Debug.Log("earnedStone: " + earnedStone);
+                int earnedIron = slayedMonstersSummary * xIron;
                 GameResources.AddIronAmount(earnedIron);
+                Debug.Log("earnedIron: " + earnedIron);
 
                 GameObject.Find("CoinNumber").GetComponent<TextMeshProUGUI>().text = earnedCoins.ToString();
                 GameObject.Find("WoodNumber").GetComponent<TextMeshProUGUI>().text = earnedWood.ToString();

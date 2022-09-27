@@ -17,22 +17,18 @@ public static  class GameResources
     
     public static void AddCoinAmount(int amount) {
         coinAmount += amount;
-        if(OnCoinAmountChanged != null) OnCoinAmountChanged(null, EventArgs.Empty);
     }
 
     public static void AddWoodAmount(int amount) {
         woodAmount += amount;
-        if(OnWoodAmountChanged != null) OnWoodAmountChanged(null, EventArgs.Empty);
     }
 
     public static void AddStoneAmount(int amount) {
         stoneAmount += amount;
-        if(OnStoneAmountChanged != null) OnStoneAmountChanged(null, EventArgs.Empty);
     }
 
     public static void AddIronAmount(int amount) {
         ironAmount += amount;
-        if(OnIronAmountChanged != null) OnIronAmountChanged(null, EventArgs.Empty);
     }
 
     public static int GetCoinAmount() {
