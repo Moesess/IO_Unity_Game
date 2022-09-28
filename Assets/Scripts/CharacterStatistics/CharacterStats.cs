@@ -16,6 +16,10 @@ public class CharacterStats
             } 
             return _value; 
         } 
+        set
+        {
+            _value = value;
+        }
     }
 
     protected bool isDirty = true;

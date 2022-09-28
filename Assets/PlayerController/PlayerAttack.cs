@@ -7,17 +7,19 @@ public class PlayerAttack : MonoBehaviour
 {
     public Animator animator;
     private TextMeshProUGUI textMesh;
-    public float strength;
+    public float strength = 0;
     private float cooldown = 0.83f;
     private float timer = 0f;
     public int killedMonsters = 0;
     public TextMeshProUGUI tmp;
     // Update is called once per frame
     private void Start() {
-        strength = gameObject.GetComponent<Character>().Strength.BaseValue;
+        strength = gameObject.GetComponent<Character>().Strength.BaseValue + StatsUpgrading.strUpgrade;
     }
     void Update()
     {
+        strength = gameObject.GetComponent<Character>().Strength.BaseValue + StatsUpgrading.strUpgrade;
+        
         timer += Time.deltaTime;
         if(Input.GetMouseButton(0))
         {
@@ -41,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
                     GameObject.FindGameObjectWithTag("Player").transform.position,
                     enemy.transform.position) < 6)
                     {
-                        enemy.GetComponent<Health>().ModifyHealth(strength * (-1));
+                        enemy.GetComponent<Health>().ModifyHealth((strength) * (-1));
                         if(enemy.GetComponent<Health>().currentHealth <= 0)
                         {
                             killedMonsters++;

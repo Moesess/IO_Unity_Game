@@ -4,7 +4,7 @@ using TMPro;
 
 public class Health : MonoBehaviour
 {
-    private float maxHealth;
+    public float maxHealth;
     public float currentHealth;
     public System.Random rand = new System.Random();
     public int xCoins;
@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
     public event Action<float> OnHealthPctChanged = delegate { };
 
     private void OnEnable() {
-        maxHealth = gameObject.GetComponent<Character>().HealthPoints.BaseValue;
+        maxHealth = gameObject.GetComponent<Character>().HealthPoints.BaseValue + StatsUpgrading.hpUpgrade;
         currentHealth = maxHealth;
     }
 
@@ -29,13 +29,14 @@ public class Health : MonoBehaviour
 
     private void Start() 
     {
-        xCoins = UnityEngine.Random.Range(1,5);
+        xCoins = UnityEngine.Random.Range(1,3);
         xWood = UnityEngine.Random.Range(1,5);
         xIron = UnityEngine.Random.Range(1,5);
         xStone = UnityEngine.Random.Range(1,5);
     }
     private void Update() 
     {
+        maxHealth = gameObject.GetComponent<Character>().HealthPoints.BaseValue + StatsUpgrading.hpUpgrade;
         if(currentHealth <= 0)
         {
 
@@ -50,7 +51,7 @@ public class Health : MonoBehaviour
                 GameObject.Find("SummaryWindowCanvas").GetComponent<Canvas>().enabled = true;
                 int slayedMonstersSummary = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().killedMonsters;
                 GameObject.Find("SlayedMonstersNumber").GetComponent<TextMeshProUGUI>().text = slayedMonstersSummary.ToString();
-                int earnedCoins = slayedMonstersSummary * xCoins;
+                int earnedCoins = slayedMonstersSummary * xCoins * 4;
                 GameResources.AddCoinAmount(earnedCoins);
                 Debug.Log("earnedCoins: " + earnedCoins);
                 int earnedWood = slayedMonstersSummary * xWood;
